@@ -1,7 +1,8 @@
 # AutoEnum
 Subdomain Enumeration Tool From Different Resources
 
-![carbon-removebg-preview](https://github.com/Crypt10tn/AutoEnum/assets/122057479/b5d5a8e4-64aa-4958-a311-5d94a6453f2c)
+![carbon-removebg](https://github.com/Crypt10tn/AutoEnum/assets/122057479/b93ef250-4496-4d7d-b6e8-3bfebf11e68b)
+
 
 # Usage
 
