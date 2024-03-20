@@ -3,14 +3,12 @@ const readline = require('readline');
 const fs = require('fs');
 const proxyChain = require('proxy-chain');
 const cliProgress = require('cli-progress');
-const config = require('./config.json'); // Import config
+const config = require('./config.json'); // 
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-// Function to print big ASCII character
 function printHeader() {
   console.log(`
         This Tool Coded By Yassine[Crypt10_]
@@ -42,25 +40,14 @@ function printHeader() {
 }
 
 printHeader();
-
-// Function to run the tool with GitHub token and IPVanish proxies
 async function runWithToken(target, token, useProxies, proxyHost, proxyPort, proxyUsername, proxyPassword) {
   const folderName = target.split('.')[0];
   fs.mkdirSync(folderName, { recursive: true });
-
-  // Run Subfinder
   await runSubfinder(target, folderName);
-
-  // Run Github Subdomains
   await runGithubSubdomains(target, token, folderName);
-
-  // Run Amass
   await runAmass(target, folderName);
-
   rl.close();
 }
-
-// Function to run Subfinder
 function runSubfinder(target, folderName) {
   return new Promise((resolve, reject) => {
     console.log('Running Subfinder for', target);
@@ -75,8 +62,6 @@ function runSubfinder(target, folderName) {
     });
   });
 }
-
-// Function to run Github Subdomains
 function runGithubSubdomains(target, token, folderName) {
   return new Promise((resolve, reject) => {
     console.log('Running Github Subdomains for', target);
@@ -91,12 +76,10 @@ function runGithubSubdomains(target, token, folderName) {
     });
   });
 }
-
-// Function to run Amass
 function runAmass(target, folderName) {
   return new Promise((resolve, reject) => {
     console.log('Running Amass for', target);
-    exec(`amass enum -d ${target} -o ${folderName}/amassoutput.txt`, (err) => {
+    exec(`amass enum -brute -d ${target} -o ${folderName}/amassoutput.txt`, (err) => {
       if (err) {
         console.error('Error running Amass:', err);
         reject(err);
@@ -108,7 +91,6 @@ function runAmass(target, folderName) {
   });
 }
 
-// Sample usage
 rl.question('Enter the target domain: ', (target) => {
   target = target.replace(/https?:\/\//, '').replace(/www\./, '');
 
