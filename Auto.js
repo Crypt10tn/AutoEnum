@@ -1,14 +1,13 @@
 const { exec } = require('child_process');
 const readline = require('readline');
 const fs = require('fs');
-const proxyChain = require('proxy-chain');
-const cliProgress = require('cli-progress');
 const config = require('./config.json'); // 
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
 function printHeader() {
   console.log(`
         This Tool Coded By Yassine[Crypt10_]
@@ -39,8 +38,10 @@ function printHeader() {
   `);
 }
 
+
 printHeader();
-async function runWithToken(target, token, useProxies, proxyHost, proxyPort, proxyUsername, proxyPassword) {
+
+async function runWithToken(target, token) {
   const folderName = target.split('.')[0];
   fs.mkdirSync(folderName, { recursive: true });
   await runSubfinder(target, folderName);
@@ -49,7 +50,6 @@ async function runWithToken(target, token, useProxies, proxyHost, proxyPort, pro
   rl.close();
 }
 
-// suggeste any update or tools please ! 
 function runSubfinder(target, folderName) {
   return new Promise((resolve, reject) => {
     console.log('Running Subfinder for', target);
@@ -64,6 +64,7 @@ function runSubfinder(target, folderName) {
     });
   });
 }
+
 function runGithubSubdomains(target, token, folderName) {
   return new Promise((resolve, reject) => {
     console.log('Running Github Subdomains for', target);
@@ -78,6 +79,7 @@ function runGithubSubdomains(target, token, folderName) {
     });
   });
 }
+
 function runAmass(target, folderName) {
   return new Promise((resolve, reject) => {
     console.log('Running Amass for', target);
@@ -96,13 +98,6 @@ function runAmass(target, folderName) {
 rl.question('Enter the target domain: ', (target) => {
   target = target.replace(/https?:\/\//, '').replace(/www\./, '');
   rl.question('Enter your GitHub token: ', (token) => {
-    rl.question('Do you want to use proxies? (yes/no): ', (useProxies) => {
-      if (useProxies.toLowerCase() === 'yes') {
-        const { host, port, username, password } = config.ipvanish.credentials;
-        runWithToken(target, token, true, host, port, username, password);
-      } else {
-        runWithToken(target, token, false);
-      }
-    });
+    runWithToken(target, token);
   });
 });
