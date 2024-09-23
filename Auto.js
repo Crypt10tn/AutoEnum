@@ -48,6 +48,8 @@ async function runWithToken(target, token, useProxies, proxyHost, proxyPort, pro
   await runAmass(target, folderName);
   rl.close();
 }
+
+// suggeste any update or tools please ! 
 function runSubfinder(target, folderName) {
   return new Promise((resolve, reject) => {
     console.log('Running Subfinder for', target);
@@ -93,7 +95,6 @@ function runAmass(target, folderName) {
 
 rl.question('Enter the target domain: ', (target) => {
   target = target.replace(/https?:\/\//, '').replace(/www\./, '');
-
   rl.question('Enter your GitHub token: ', (token) => {
     rl.question('Do you want to use proxies? (yes/no): ', (useProxies) => {
       if (useProxies.toLowerCase() === 'yes') {
